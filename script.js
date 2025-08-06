@@ -2,14 +2,19 @@ let currentInstrument = 'piano';
 
 const soundMap = {
   piano: {
-    A:'g6G.mp3',
-    S:'f6F.mp3',
+    G:'g6G.mp3',
+    F:'f6F.mp3',
     B:'b6B.mp3',
-    C:'c6C.mp3'
+    C:'c6C.mp3',
+    D:'d6D.mp3',
+    E:'e6E.mp3',
+    A:'a6A.mp3'
   },
-  drum: {
-    A: 'd6D.mp3',
-    S: 'a6A.mp3'
+  xylophone: {
+    G:'db1.mp3',
+    F:'sd3.mp3',
+    B:'sd5.mp3',
+    C:'snare-3.mp3' 
   }
 };
 
@@ -35,8 +40,8 @@ function animateKey(key) {
 }
 
 document.getElementById('switchBtn').addEventListener('click', () => {
-  currentInstrument = currentInstrument === 'piano' ? 'drum' : 'piano';
+  currentInstrument = currentInstrument === 'piano' ? 'xylophone' : 'piano';
   document.getElementById('switchBtn').innerText = 
-    currentInstrument === 'piano' ? 'Switch to Drum' : 'Switch to Piano';
+    currentInstrument === 'piano' ? 'Switch to xylophone' : 'Switch to Piano';
 });
 
