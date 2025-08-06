@@ -10,7 +10,7 @@ const soundMap = {
     E:'e6E.mp3',
     A:'a6A.mp3'
   },
-  xylophone: {
+  drum: {
     G:'db1.mp3',
     F:'sd3.mp3',
     B:'sd5.mp3',
@@ -40,8 +40,8 @@ function animateKey(key) {
 }
 
 document.getElementById('switchBtn').addEventListener('click', () => {
-  currentInstrument = currentInstrument === 'piano' ? 'xylophone' : 'piano';
+  currentInstrument = currentInstrument === 'piano' ? 'drum' : 'piano';
   document.getElementById('switchBtn').innerText = 
-    currentInstrument === 'piano' ? 'Switch to xylophone' : 'Switch to Piano';
+    currentInstrument === 'piano' ? 'Switch to drum' : 'Switch to Piano';
 });
 
