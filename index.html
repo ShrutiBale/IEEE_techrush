@@ -4,19 +4,32 @@
   <meta charset="UTF-8">
   <title>SoundSpace</title>
   <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <h1 style="color: rgb(123, 206, 251);">&#x266C; SoundSpace</h1>
-  <button id="switchBtn">Switch to Drum</button>
-  <div class="keys">
-    <div class="key" data-key="C">C</div>
-    <div class="key" data-key="D">D</div>
-    <div class="key" data-key="E">E</div>
-    <div class="key" data-key="F">F</div>
-    <div class="key" data-key="G">G</div>
-    <div class="key" data-key="A">A</div>
-    <div class="key" data-key="B">B</div>
+  <h1>SoundSpace</h1>
+
+  <div id="instrument-selection">
+    <button onclick="selectInstrument('piano')">Piano</button>
+    <button onclick="selectInstrument('drum')">Drum</button>
   </div>
-  <script src="script.js"></script>
+
+  <div id="piano" class="instrument hidden">
+    <div class="piano-key" data-key="C">C</div>
+    <div class="piano-key" data-key="D">D</div>
+    <div class="piano-key" data-key="E">E</div>
+    <div class="piano-key" data-key="F">F</div>
+    <div class="piano-key" data-key="G">G</div>
+    <div class="piano-key" data-key="A">A</div>
+    <div class="piano-key" data-key="B">B</div>
+  </div>
+
+  <div id="drum" class="instrument hidden">
+    <div class="drum-key" data-key="K">K</div>
+    <div class="drum-key" data-key="S">S</div>
+    <div class="drum-key" data-key="H">H</div>
+    <div class="drum-key" data-key="T">T</div>
+  </div>
+
 </body>
 </html>

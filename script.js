@@ -1,47 +1,100 @@
+
 let currentInstrument = 'piano';
 
 const soundMap = {
   piano: {
-    G:'g6G.mp3',
-    F:'f6F.mp3',
-    B:'b6B.mp3',
-    C:'c6C.mp3',
-    D:'d6D.mp3',
-    E:'e6E.mp3',
-    A:'a6A.mp3'
+    G: 'sounds/g6G.mp3',
+    F: 'sounds/f6F.mp3',
+    B: 'sounds/b6B.mp3',
+    C: 'sounds/c6C.mp3',
+    D: 'sounds/d6D.mp3',
+    E: 'sounds/e6E.mp3',
+    A: 'sounds/a6A.mp3'
   },
   drum: {
-    G:'db1.mp3',
-    F:'sd3.mp3',
-    B:'sd5.mp3',
-    C:'snare-3.mp3' 
+    K: 'sounds/db1.mp3',
+    S: 'sounds/sd3.mp3',
+    H: 'sounds/sd5.mp3',
+    T: 'sounds/snare-3.mp3'
   }
 };
 
-document.addEventListener('keydown', (e) => {
-  const key = e.key.toUpperCase();
-  if (soundMap[currentInstrument][key]) {
-    playSound(key);
-    animateKey(key);
+// Map physical keyboard keys to notes
+const keyBindings = {
+  // Piano
+  c: 'C',
+  d: 'D',
+  e: 'E',
+  f: 'F',
+  g: 'G',
+  a: 'A',
+  b: 'B',
+  // Drums
+  k: 'K',
+  s: 'S',
+  h: 'H',
+  t: 'T'
+};
+
+function selectInstrument(name) {
+  currentInstrument = name;
+  document.querySelectorAll('.instrument').forEach(div => div.classList.add('hidden'));
+  document.getElementById(name).classList.remove('hidden');
+}
+
+// Play sound function
+function playSound(note) {
+  const soundFile = soundMap[currentInstrument][note];
+  if (soundFile) {
+    const audio = new Audio(soundFile);
+    audio.play().catch(err => console.error('Audio play error:', err));
+  } else {
+    console.warn(`No sound mapped for key: ${note} in ${currentInstrument}`);
+  }
+}
+
+// Click support
+document.addEventListener('click', function (e) {
+  const key = e.target.closest('[data-key]');
+  if (key && currentInstrument) {
+    const note = key.getAttribute('data-key');
+    playSound(note);
   }
 });
 
-function playSound(key) {
-  const audio = new Audio(soundMap[currentInstrument][key]);
-  audio.play();
-}
-
-function animateKey(key) {
-  const keyDiv = document.querySelector(`.key[data-key="${key}"]`);
-  if (keyDiv) {
-    keyDiv.classList.add('active');
-    setTimeout(() => keyDiv.classList.remove('active'), 150);
+// Keyboard support
+document.addEventListener('keydown', function (e) {
+  const note = keyBindings[e.key.toLowerCase()];
+  if (note) {
+    playSound(note);
   }
-}
-
-document.getElementById('switchBtn').addEventListener('click', () => {
-  currentInstrument = currentInstrument === 'piano' ? 'drum' : 'piano';
-  document.getElementById('switchBtn').innerText = 
-    currentInstrument === 'piano' ? 'Switch to drum' : 'Switch to Piano';
 });
+
+// // Show piano by default
+// selectInstrument('piano');
+
+// Keyboard support with separate colors
+document.addEventListener('keydown', function (e) {
+  const note = keyBindings[e.key.toLowerCase()];
+  if (note) {
+    playSound(note);
+
+    // Find the matching visual key (piano or drum)
+    const keyElement = document.querySelector(`[data-key="${note}"]`);
+    if (keyElement) {
+      keyElement.classList.add('active');
+    }
+  }
+});
+
+document.addEventListener('keyup', function (e) {
+  const note = keyBindings[e.key.toLowerCase()];
+  if (note) {
+    const keyElement = document.querySelector(`[data-key="${note}"]`);
+    if (keyElement) {
+      keyElement.classList.remove('active');
+    }
+  }
+});
+
 
